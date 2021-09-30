@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>소프트웨어 실습 깃허브 페이지</title>
+    <script>
+        function changeColor(){
+            document.getElementById("main").style.color ="black";
+            document.getElementById("main").style.backgroundColor ="white";
+        }
+    </script>
 </head>
-<body>
+<body id ='main'>
     <p>안녕하세요 강수창입니다 Github pages에 오신 것을 환영합니다.</p>
     <p>2021학년2학기 소프트웨어 실습강의입니다.</p>
+
+    <form>
+        배경색 바꾸기 : <input type="color" value="#e2fdee" onmouseover = 'document.body.style.backgroundColor = this.value'> <br>
+    </form>
+    <form>
+        글자색 바꾸기 : <input type="color" value="#5d4c4c" onmouseover = 'document.body.style.color = this.value'>
+    </form>
+    <form>
+        <input type="button" value="reset" onclick="changeColor()">
+    </form>
+    <hr>
     <details>
         <summary>1강</summary>
         <ul>
@@ -18,6 +35,7 @@
             <li><a href="W1/prac1-04.html" target="_blank">prac1-04.html</a></li>
         </ul>
     </details>
+    <hr>
     <details>
         <summary>2강</summary>
         <ul>
@@ -32,6 +50,20 @@
 
         </ul>
     </details>
+    <hr>
+    <details>
+        <summary>3강</summary>
+        <ul>
+            <li><a href="W3/prac3-01.html" target="_blank">prac3-01.html</a></li>
+            <li><a href="W3/prac3-02.html" target="_blank">prac3-02.html</a></li>
+            <li><a href="W3/prac3-03.html" target="_blank">prac3-03.html</a></li>
+            <li><a href="W3/prac3-04.html" target="_blank">prac3-04.html</a></li>
+            <li><a href="W3/prac3-04.html" target="_blank">prac3-04.html</a></li>
+            <li><a href="W3/prac3-05.html" target="_blank">prac3-05.html</a></li>
+        </ul>
+    </details>
+    <hr>
+
 </body>
 
 </html>
