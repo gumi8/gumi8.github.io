@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>text-shadow와 box-shadow</title>
-<style>
-h2 {
-	text-align : center;
-	color : yellow;
-	text-shadow : 2px 2px 3px blue;
-}
-img:hover {
-	box-shadow : 0px 0px 5px blue;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h3{
+            color: yellow;
+            text-shadow : 2px 2px 5px blue;
+            text-align: center;
+            font-size: 40px;
+        }
+        hr{
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        table{
+            margin :auto;
+        }
+        img{
+            width: 300px;
+            height: 300px;
+
+        }
+        img:hover{
+            box-shadow: 1px 1px 10px blue;
+        }
+    </style>
 </head>
 <body>
-<h2>Most Visited Pages</h2>
-<hr>
-<table>
-	<tr>
-		<td><a href="http://www.naver.com">
-				<img src="media/naver.png" width="120" height="100">
-			</a></td>
-		<td><a href="http://www.chosun.com">
-				<img src="media/chosun.png" width="120" height="100">
-			</a></td>
-		<td><a href="http://www.amazon.com">
-				<img src="media/amazon.png" width="120" height="100">
-			</a>
-		</td>
-	</tr>
-</table>
+    <h3>Most Visited Pages</h3>
+    <hr>
+    <table>
+        <tr>
+            <td><img src="media/daum.png" alt="">&nbsp;</td>
+            <td><img src="media/naver.png" alt="">&nbsp;</td>
+            <td><img src="media/google.png" alt="">&nbsp;</td>
+        </tr>
+    </table>
 </body>
 </html>

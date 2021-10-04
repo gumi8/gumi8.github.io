@@ -1,0 +1,18 @@
+h3{color: green;}
+body{
+    background: paleturquoise;
+}
+p > strong{
+    color: red;
+}
+p > em{
+    color: royalblue;
+}
+div#center{
+
+    text-align: center;
+}
+div > strong{
+    background: yellow;
+    color :blue
+}
