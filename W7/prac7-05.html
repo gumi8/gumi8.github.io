@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function Max(N){
+            let index = 0;
+            let max = N[index];
+            for (let i = 0; i < N.length; i++) {
+                if(N[i].length>N[index].length){
+                    index = i;
+                    max = N[index];
+                }          
+            }
+            return max;
+        }
+    </script>
+</head>
+<body>
+    <script>
+        let names = ["wonsun","jaemoonlee","kitae","gracehwang"];
+        document.write("(1)이름 :")
+        for (let i = 0; i < names.length; i++) {
+            document.write(names[i]+" ");
+        }
+        document.write("<br>");
+        document.write("(2)가장 긴 이름 : " + Max(names)+"<br>");
+        let new_names = names.sort();
+        document.write("(3)가장 먼저 나오는 이름 : " + new_names[0]+"<br>");
+        document.write("(4)증가순 이름 : " + new_names.join(" ")+"<br>");
+
+
+
+    </script>
+</body>
+</html>

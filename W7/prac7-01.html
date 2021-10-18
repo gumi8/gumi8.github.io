@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function makeRandint(){
+            return parseInt(Math.floor((Math.random()*100))+1)
+        }
+        function Max(N){
+            let i =0;
+            let max = N[0];
+            for(i;i<N.length;i++){
+                if (max<N[i]) max = N[i];
+            }
+            return max;
+        }
+        // function Intsort(N){
+        //     let i;
+        //     let min;
+        //     let j;
+        //     for(i=0; i<N.length-1;i++){
+        //          min = i;
+        //         for( j =i+1; N.length;j++){
+        //             if (N[j] < N[min]) min = j;
+        //         }
+        //         if (min != i) {
+        //             [N[i],N[min]] = [N[min], N[i]];
+        //         }
+        //     }
+        //     return N
+        // }
+        // 선택정렬 안됨...
+    </script>
+</head>
+<body>
+    <h3>난수 10개 생성</h3>
+    <hr>
+    <script>
+        let plot = new Array(10);
+        let i =0;
+        for(i;i<10;i++){
+            plot[i] = makeRandint();
+        }
+        document.write(plot.join(' '));
+        document.write("<hr>")
+        let max = Max(plot)
+        document.write("제일 큰 수는" +max+"<hr>")
+        
+        plot.sort();
+        document.write(plot.join(" "));
+
+    </script>
+</body>
+</html>

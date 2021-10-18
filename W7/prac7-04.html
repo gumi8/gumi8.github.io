@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>일요일은 pink, 다른요일은 gold 배경</h3>
+    <hr>
+    <script>
+        let today = new Date();
+        let day = ["일","월","화","수","목","금","토"]
+        document.write("오늘 : " + today.getDate()+"일,"+day[today.getDay()]+"요일");
+        if(today.getDay() == 0)
+            document.body.style.background ="pink";
+        else
+            document.body.style.background ="gold";
+
+    </script>
+</body>
+</html>

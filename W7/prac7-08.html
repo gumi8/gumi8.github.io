@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body>div{
+            display: inline-block;
+            width: 150px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function randcolor3(){
+            let N = new Array(3);
+            for(let i =0;i<3;i++){
+                N[i] = Math.floor(Math.random()*256);
+            }
+            return N;
+        }
+    </script>
+</head>
+<body>
+    <h3>16개의  랜덤한 색 만들기</h3>
+    <hr>
+    <script>
+        for (let i = 0; i < 16; i++) {
+            let color = randcolor3();
+            let str = "<div style ='background : rgb(" ;           
+            str += color;
+            str += ")'> rgb("+ color +")</div>";
+            document.write(str);
+        }
+
+    </script>
+</body>
+</html>
