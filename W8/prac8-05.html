@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>z-index 스타일 프로퍼티</title>
+    <style>
+        div{
+            position: absolute;
+        }
+        img{
+            position: absolute;
+
+        }
+    </style>
+</head>
+<body>
+    <h3>z-index 스타일 프로퍼티</h3>
+    <hr>
+    <div>
+        <img src="media/spade-A.png" width="100" height="140" alt="스페이드A">
+        <img src="media/spade-2.png" width="100" height="140" alt="스페이드2">
+        <img src="media/spade-3.png" width="100" height="140" alt="스페이드3">
+        <img src="media/spade-7.png" width="100" height="140" alt="스페이드7">
+    </div>    
+    <script>
+        let img = document.getElementsByTagName('img');
+        for(let i =0; i<img.length; i++){
+            let a = img[i];
+            a.style.zIndex = i;
+            //보통 let newimg = img[i] 이런식으로 선언해서 많이씀
+
+            a.onclick = shuffle;
+            //이벤트 리스너 등록하는방법<- 전에 문제도 해보자
+        }
+        function shuffle(){
+            for(let i=0; i<img.length;i++){
+                img[i].style.zIndex++;
+                img[i].style.zIndex %= img.length;
+            }
+        }
+    </script>
+</body>
+</html>

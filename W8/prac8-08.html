@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let i = 1;
+        function sizeup(){
+        i = (i+1)%5; 
+        if (i == 0) i=1;   
+        a[0].style.transform ="scale("+ i +",1)";
+        
+        }
+    </script>
+</head>
+<body>
+    <h3>클릭하면 2,3,4배로 옆으로 늘어납니다.</h3>
+    <hr>
+    <img src="media/spongebob.png" alt="스폰지밥 사진" width="200">
+    <script>
+        let a = document.getElementsByTagName('img');
+        a[0].onclick = sizeup;
+
+    </script>
+</body>
+</html>
