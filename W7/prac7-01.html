@@ -17,22 +17,27 @@
             }
             return max;
         }
-        // function Intsort(N){
-        //     let i;
-        //     let min;
-        //     let j;
-        //     for(i=0; i<N.length-1;i++){
-        //          min = i;
-        //         for( j =i+1; N.length;j++){
-        //             if (N[j] < N[min]) min = j;
-        //         }
-        //         if (min != i) {
-        //             [N[i],N[min]] = [N[min], N[i]];
+        function sort(N){ //선택정렬
+            let i;
+            let min;
+            for(i=0; i<N.length-1;i++){
+                min = i;
+                for(let j =i+1;j<N.length;j++){
+                    if (N[j] < N[min]) min = j;
+                }
+                if (min != i) {
+                    [N[i],N[min]] = [N[min], N[i]];
+                }
+            }
+        }
+        // function sort(a){ //삽입정렬
+        //     N = a.length;
+        //     for(let i=1;i<N;i++){
+        //         for(let j=i;j>0 && a[j-1]>a[j];j--){
+        //             [a[j],a[j-1]] = [a[j-1], a[j]];
         //         }
         //     }
-        //     return N
         // }
-        // 선택정렬 안됨...
     </script>
 </head>
 <body>
@@ -48,8 +53,7 @@
         document.write("<hr>")
         let max = Max(plot)
         document.write("제일 큰 수는" +max+"<hr>")
-        
-        plot.sort();
+        sort(plot)
         document.write(plot.join(" "));
 
     </script>
