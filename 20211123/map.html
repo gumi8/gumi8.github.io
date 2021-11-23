@@ -75,6 +75,7 @@ tooltip.appendTo(map.getPanes().floatPane);
 
 function startDataLayer() {
     map.data.setStyle(function(feature) {
+        //아니면 이거쓴다.
         var styleOptions = {
             fillColor: '#ff0000',
             fillOpacity: 0.0001,
@@ -83,7 +84,7 @@ function startDataLayer() {
             strokeOpacity: 0.4
         };
 
-        if (feature.getProperty('focus')) {
+        if (feature.getProperty('focus')) { //포커스이면 이걸로 바꾼다.
             styleOptions.fillOpacity = 0.6;
             styleOptions.fillColor = '#0f0';
             styleOptions.strokeColor = '#0f0';
@@ -100,11 +101,10 @@ function startDataLayer() {
 
     map.data.addListener('click', function(e) {
         var feature = e.feature;
-
-        if (feature.getProperty('focus') !== true) {
-            //누르면 table에 table 만들려는 코드 전에 띄우기 부터하자.
-            // document.getElementById("table").innerHTML = feature.getProperty('area1');
-            queryParams += '&' + encodeURIComponent('location_name') + '=' + encodeURIComponent(feature.getProperty('area1')); /**/
+    if (feature.getProperty('focus') !== true) {
+        //누르면 table에 table 만들려는 코드 전에 띄우기 부터하자.
+        // document.getElementById("table").innerHTML = feature.getProperty('area1');
+        queryParams += '&' + encodeURIComponent('location_name') + '=' + encodeURIComponent(feature.getProperty('area1')); /**/
 xhr.open('GET', url + queryParams);
 xhr.onreadystatechange = function () {
     // if (this.readyState == 4) {
@@ -113,9 +113,16 @@ xhr.onreadystatechange = function () {
     myFunction(this);
 };
 xhr.send('');
-
-            feature.setProperty('focus', true);
-        } else {
+map.data.features.forEach(
+            function(feature){
+                feature.setProperty('focus',false);
+            }
+        );
+build_table(feature.getProperty('area1'));
+feature.setProperty('focus', true);
+        }
+        else {
+            clear_table();
             feature.setProperty('focus', false);
         }
     });
@@ -141,7 +148,9 @@ xhr.send('');
         tooltip.hide().empty();
         map.data.revertStyle();
     });
-}
+
+} //startDataLayer함수 끝나는곳
+
 function myFunction(xml) {
           var xmlDoc = xml.responseXML; //xml DOM 객체생성
           var x = xmlDoc.getElementsByTagName("row");
