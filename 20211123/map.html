@@ -42,19 +42,22 @@ var map = new naver.maps.Map(document.getElementById('map'), {
     zoom: 7,
     mapTypeId: 'normal',
     center: new naver.maps.LatLng(36.4203004, 128.317960)
-});
+}); 
+ var tmp;
 //지도가 로드된다음 일회성으로 실행되는 이벤트-
 naver.maps.Event.once(map, 'init_stylemap', function () {
     for (var i = 1; i < 18; i++) {
-        var keyword = i +'';
+        var keyword = i+''; //문자열로 만들기
         if (keyword.length === 1) {
             keyword = '0'+ keyword;
         }
-
+    
         $.ajax({
             url: urlPrefix + keyword + urlSuffix,
             success: function(idx) {
+                tmp = idx;
                 return function(geojson) {
+                    tmp = geojson;
                     regionGeoJson[idx] = geojson;
 
                     loadCount++;

@@ -29,14 +29,18 @@ naver.maps.Event.once(map, 'init_stylemap', function () {
         success: startDataLayer
     });
 });
-
+var dump;
 function startDataLayer(geojson) {
     map.data.addGeoJson(geojson);
+    dump = geojson; 
     map.data.setStyle(function(feature) {
         var color = 'red';
-
-        if (feature.getProperty('isColorful')) {
-            color = feature.getProperty('color');
+        
+        if (feature.getProperty('isColorful')) { //isColorful 속성값을 불러온다.
+            color = feature.getProperty('color'); //애는 왜 color = 이렇게하지?
+            //color = 'black';
+            
+            
         }
 
         return {
