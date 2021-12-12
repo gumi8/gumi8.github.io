@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Final Project</title>
+    <script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ms21qfhkka"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        table#table,
+        #table th,
+        #table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" style="width:100%;height:400px;"></div>
+    <form>
+        <table>
+            <tr>
+                <td>검색을 원하는 지역을 입력해 주세요 : </td>
+                <td colspan="2"><input type="text" id="location"></td>
+            </tr>
+            <tr>
+                <td>조회할 데이터 개수를 입력해주세요 :</td>
+                <td colspan="2"><input type="text" id="num"></td>
+            </tr>
+            <tr>
+                <td>Layer && Count RESET => K.ESC</td>
+                <td><input type="button" value="검색" onclick="find()"></td>
+                <td id='cnt'></td>
+            </tr>
+        </table>
+    </form>
+    <hr>
+    <table id='table'></table>
+
+    <script>
+        var map = new naver.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            mapTypeId: 'normal',
+            center: new naver.maps.LatLng(36.4203004, 128.317960)
+        });
+        var HOME_PATH = "https://navermaps.github.io/maps.js/docs", //이부분이 geogason파일
+            urlPrefix = HOME_PATH + '/data/region',
+            urlSuffix = '.json',
+            regionGeoJson = [],
+            loadCount = 0;
+
+
+
+        var locationBtnHtml = '<h1 id = "message" style="color: red;font-size: 50px;">여기에 재난문자에 관한 정보가 출력됩니다.</h1>';
+
+        var cityhall0 = new naver.maps.LatLng(37.5954168, 126.9982269);
+        var cityhall1 = new naver.maps.LatLng(35.8692985, 128.5394611);
+        var cityhall2 = new naver.maps.LatLng(37.2434366, 127.0931946);
+        var cityhall3 = new naver.maps.LatLng(37.543736, 128.2237966);
+        var cityhall4 = new naver.maps.LatLng(35.2622453, 126.7995184);
+        var cityhall5 = new naver.maps.LatLng(36.350461, 127.38263);
+        var cityhall6 = new naver.maps.LatLng(37.4505882, 126.4487053);
+        var cityhall7 = new naver.maps.LatLng(33.3616837, 126.5204118);
+        var cityhallList = [cityhall0,cityhall1,cityhall2,cityhall3,cityhall4,cityhall5,cityhall6,cityhall7];
+        var maxList = [];
+        var cnt = 0;
+        var markerList = [];
+        var url = 'http://apis.data.go.kr/1741000/DisasterMsg4/getDisasterMsg2List'; /*URL*/
+
+
+        function max(arr) {
+            var i = 0;
+            var maxindex = i;
+            var max = arr[i];
+            for (i; i < arr.length; i++) {
+                if (max < arr[i]) {
+                    maxindex = i;
+                    max = arr[i];
+                }
+            }
+            return [maxindex, max];
+        }
+        function change(arr) {
+            var color;
+            var local;
+            if (arr[1] < 10) color = "green";
+            else if (arr[1] < 25) color = "yellow";
+            else color = "crimson";
+
+            if (arr[0] == 0) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall0,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "서울";
+
+            }
+            else if (arr[0] == 1) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall1,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "경상도";
+
+            }
+            else if (arr[0] == 2) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall2,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "경기도";
+
+            }
+            else if (arr[0] == 3) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall3,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "강원도";
+
+            }
+            else if (arr[0] == 4) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall4,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "전라도";
+
+            }
+            else if (arr[0] == 5) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall5,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "충청도";
+
+            }
+            else if (arr[0] == 6) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall6,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "인천";
+
+            }
+            else if (arr[0] == 7) {
+                var circle = new naver.maps.Circle({
+                    map: map,
+                    center: cityhall7,
+                    radius: 20000,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                });
+                local = "제주도";
+
+            }
+            markerList.push(circle);
+            cnt = cnt + 1
+            var newstr2 = '<h1 id = "message" style="color: ' + color + ';font-size: 50px;"> 조회결과 재난문자가 가장많이 조회된 지역은' + arr[1] + '건으로' + local + "입니다</h1>";
+            document.getElementById("message").innerHTML = newstr2;
+            document.getElementById('cnt').innerHTML = cnt;
+        }
+        function rg(a, n1, n2) {
+            return a >= n1 && a <= n2;
+        }
+        function count(a) {
+            var index = [0, 0, 0, 0, 0, 0, 0, 0];
+            var cnt = 0;
+            var xmlDoc = a.responseXML; //xml DOM 객체생성 //각각의 index마다 알파벳변수 부여하고 그 문자열을 같이 리턴한다. 필요하면 표를 출력할 수 있게한다.
+            var x = xmlDoc.getElementsByTagName("row");
+            for (let i = 0; i < x.length; i++) {
+                var a = x[i].getElementsByTagName("location_id")[0].childNodes[0].nodeValue;
+                if (rg(a, 136, 161)) index[0]++;
+                else if (rg(a, 53, 97) || rg(a, 104, 112) || rg(a, 119, 135) || rg(a, 162, 167)) index[1]++;
+                else if (rg(a, 21, 52)) index[2]++;
+                else if (rg(a, 2, 20)) index[3]++;
+                else if (rg(a, 98, 103) || rg(a, 179, 216)) index[4]++;
+                else if (rg(a, 113, 118) || rg(a, 222, 250)) index[5]++;
+                else if (rg(a, 168, 178)) index[6]++;
+                else if (rg(a, 217, 221)) index[7]++;
+                else continue;
+            }
+
+            return index;
+        }
+        function find() {
+            var findmax = new Array(2);
+            var num = document.getElementById('num').value;
+            var location = document.getElementById('location').value;
+            var queryParams = mkquerybyinput(num, location);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url + queryParams);
+            xhr.onreadystatechange = function () {
+                myFunction(this);
+                maxList = max(count(this));
+                change(max(count(this)));
+                map.setCenter(cityhallList[maxList[0]])
+                
+            };
+
+            xhr.send('');
+            document.getElementById('location').value = '';
+            document.getElementById('num').value = '';
+        }
+        function mkquerybyinput(n, l) {
+            var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'vgX4Mma%2BzsYIf0czI7rGsQF4dHCEkPRl5SKgVnaxikYp3iT2liuJp1ND4a3zRQrnrliriPbxOFifrU7RW8BIXw%3D%3D'; /*Service Key*/
+            queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+            queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent(n); /**/
+            queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('xml'); /**/
+            queryParams += '&' + encodeURIComponent('create_date') + '=' + encodeURIComponent('2021/06/22 00:00:00');
+            queryParams += '&' + encodeURIComponent('location_name') + '=' + encodeURIComponent(l); /**/
+            return queryParams;
+        }
+        function mkquery(f) {
+            var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'vgX4Mma%2BzsYIf0czI7rGsQF4dHCEkPRl5SKgVnaxikYp3iT2liuJp1ND4a3zRQrnrliriPbxOFifrU7RW8BIXw%3D%3D'; /*Service Key*/
+            queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+            queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+            queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('xml'); /**/
+            queryParams += '&' + encodeURIComponent('create_date') + '=' + encodeURIComponent('2021/06/22 00:00:00');
+            queryParams += '&' + encodeURIComponent('location_name') + '=' + encodeURIComponent(f.getProperty('area1')); /**/
+            return queryParams;
+        }
+        function startDataLayer() {
+            map.data.setStyle(function (feature) {
+                //아니면 이거쓴다.
+                var styleOptions = {
+                    fillColor: '#ffffff',
+                    fillOpacity: 0,
+                    strokeColor: '#ffffff',
+                    strokeWeight: 2,
+                    strokeOpacity: 0.4
+                };
+                return styleOptions;
+            });
+
+            regionGeoJson.forEach(function (geojson) {
+                map.data.addGeoJson(geojson);
+            });
+
+            map.data.addListener('click', function (e) {
+                var feature = e.feature;
+                //누르면 table에 table 만들려는 코드 전에 띄우기 부터하자.
+                // document.getElementById("table").innerHTML = feature.getProperty('area1');
+                var queryParams = mkquery(feature);
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url + queryParams);
+
+                xhr.onreadystatechange = function () {
+                    myFunction(this);
+                    maxList =max(count(this));
+                    change(max(count(this)))
+                };
+                xhr.send('');
+
+            });
+        } //startDataLayer함수 끝나는곳
+
+        function myFunction(xml) {
+            var xmlDoc = xml.responseXML; //xml DOM 객체생성
+            var x = xmlDoc.getElementsByTagName("row");
+            let table = "<tr><th>지역</th><th>메시지 내용</th></tr>";
+            for (let i = 0; i < x.length; i++) {
+                table += "<tr><td>" +
+                    x[i].getElementsByTagName("location_name")[0].childNodes[0].nodeValue +
+                    "</td><td>" +
+                    x[i].getElementsByTagName("msg")[0].childNodes[0].nodeValue +
+                    "</td></tr>";
+            }
+            document.getElementById("table").innerHTML = table;
+        }
+
+        naver.maps.Event.once(map, 'init_stylemap', function () {
+            var customControl = new naver.maps.CustomControl(locationBtnHtml, {
+                position: naver.maps.Position.TOP_LEFT
+            }); //뛰울 문자의 위츠를 설정한다.
+            customControl.setMap(map);
+            //문자를 띄우고 이벤트를 등록한다.
+            naver.maps.Event.addDOMListener(customControl.getElement(), 'click', function () {
+                
+                map.setCenter(cityhallList[maxList[0]]);
+            });
+
+            var tmp;
+            for (var i = 1; i < 18; i++) {
+                var keyword = i + ''; //문자열로 만들기
+                if (keyword.length === 1) {
+                    keyword = '0' + keyword;
+                }
+
+                $.ajax({
+                    url: urlPrefix + keyword + urlSuffix,
+                    success: function (idx) {
+                        tmp = idx;
+                        return function (geojson) {
+                            tmp = geojson;
+                            regionGeoJson[idx] = geojson;
+
+                            loadCount++;
+
+                            if (loadCount === 17) {
+                                startDataLayer();
+                            }
+                        }
+                    }(i - 1)
+                });
+            }
+        });
+        naver.maps.Event.addListener(map, 'keydown', function (e) {
+            var keyboardEvent = e.keyboardEvent,
+                keyCode = keyboardEvent.keyCode || keyboardEvent.which;
+            var ESC = 27;
+            var ent = 13;
+            if (keyCode === ESC) {
+                
+                keyboardEvent.preventDefault();
+                for (var i = 0, ii = markerList.length; i < ii; i++) {
+                    markerList[i].setMap(null);
+                }
+                markerList = [];
+                cnt = 0;
+                document.getElementById('cnt').innerHTML = 0;
+            }
+            if (keyCode == ent){
+                find();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
